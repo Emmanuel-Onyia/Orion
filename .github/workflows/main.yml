@@ -22,7 +22,7 @@ jobs:
 
     - name: Sync files to S3
       run: |
-        aws s3 sync . s3://onlypans-s3 --exclude ".git/*" --exclude ".github/*" --delete  # Sync files to S3 (bucket name is 'onlypans-s3')
+        aws s3 sync . s3://orion-pens --exclude ".git/*" --exclude ".github/*" --delete  # Sync files to S3 (bucket name is 'onlypans-s3')
 
 
 
