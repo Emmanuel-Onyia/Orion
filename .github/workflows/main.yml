@@ -3,26 +3,28 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main  # Trigger the action on every push to the main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # GitHub-hosted runner (Ubuntu environment)
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Checkout the repository
 
     - name: Set up AWS CLI
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v2  # Configure AWS credentials
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Specify your region
+        aws-region: us-east-1  # Adjust if your bucket is in a different region
 
     - name: Sync files to S3
       run: |
-        aws s3 sync ./ s3://onlypans-s3/ --exclude ".git/*"
+        aws s3 sync . s3://your-bucket-name --exclude ".git/*" --exclude ".github/*" --delete  # Sync files to S3
+
+
 
 
 
